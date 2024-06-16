@@ -56,11 +56,6 @@ public class SimpleFoodOrderSystem extends Invoice_generate
 						tam.changeprice();
 						break;
 					}
-					
-					case 3:
-					{
-						
-					}
 				}
 			}
 		}
