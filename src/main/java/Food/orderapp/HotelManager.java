@@ -1,5 +1,6 @@
 package Food.orderapp;
 
+import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,8 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.swing.JOptionPane;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -45,7 +44,8 @@ public class HotelManager
 	{
 		if(isreg==true)
 			{
-				gethotel_name =JOptionPane.showInputDialog(null,"Re-enter hotel name to add menu(Enter stop to end menu) : ");
+				System.out.println("Re-enter hotel name to add menu(Enter stop to end menu) : ");
+				gethotel_name = s.nextLine();
 				
 				File f = new File(filepath);
 				FileInputStream fis = new FileInputStream(f);
@@ -63,8 +63,9 @@ public class HotelManager
 						
 						while(true)
 						{
-							Item_name = JOptionPane.showInputDialog(null,"Enter Item_name: ");
-							
+							 System.out.println("Enter Item_name: ");
+							 Item_name = s.nextLine();
+							 
 							if(Item_name.equalsIgnoreCase("Stop"))
 							{
 								System.out.println("Items added.");
@@ -105,7 +106,8 @@ public class HotelManager
 								
 							}
 						
-							add_price =Double.parseDouble(JOptionPane.showInputDialog(null,"Enter Item's price: "));
+							System.out.println("Enter Item's price: ");
+							add_price = s.nextDouble();
 							s.nextLine();
 							
 							int rowcount = sheet.getLastRowNum()+1;
@@ -135,62 +137,68 @@ public class HotelManager
 	{
 		File f = new File(filepath);
 		FileInputStream fis = new FileInputStream(f);
-		//FileOutputStream foi = new FileOutputStream(f);
-		XSSFWorkbook wbk = new XSSFWorkbook(fis);
+		try (//FileOutputStream foi = new FileOutputStream(f);
+		XSSFWorkbook wbk = new XSSFWorkbook(fis)) {
+			//System.out.println("Enter hotel name: ");
+			System.out.println("Enter hotel name: ");
+			new_Hotelname= s.nextLine();
+			
+			 for (int sheet_count = 0; sheet_count < wbk.getNumberOfSheets(); sheet_count++)
+			 {
+			   Sheet sheet = wbk.getSheetAt(sheet_count);
+			
+			   if(new_Hotelname.equalsIgnoreCase(sheet.getSheetName()))
+			   {
+				   ishotel=true;
+				   System.out.println("Given hotel name is already exist.");//get branch details etc
+				   return;
+			   }
+			 }
+			  if(!ishotel)
+				   if(!ishotel)
+				   {
+					   
+					   System.out.println("Would you like to add your hotel in our site!!!");
+					   user_choice = s.nextLine();
+					   
+					   if(user_choice.equalsIgnoreCase("yes")||user_choice.equalsIgnoreCase("s"))
+					   {
+						   	  fis.close();
+						   
+							  FileOutputStream foi = new FileOutputStream(f);  
+							  Sheet createSheet = wbk.createSheet(new_Hotelname); 
+							  
+							  	Row headerRow = createSheet.createRow(0);
+						        Cell foodCell = headerRow.createCell(0);
+						        Cell priceCell = headerRow.createCell(1);
+
+						        foodCell.setCellValue("Food Items");
+						        priceCell.setCellValue("Price");
+
+						        Font boldFont = wbk.createFont();
+						        boldFont.setBold(true);
+						        CellStyle boldStyle = wbk.createCellStyle();
+						        boldStyle.setFont(boldFont);
+
+						        foodCell.setCellStyle(boldStyle);
+						        priceCell.setCellStyle(boldStyle);
+						        
+						        wbk.write(foi); 
+						        isreg=true;
+						        System.out.println("Hotel Successfully Registered.");
+						        NewHotel_menu();
+						        foi.close();
+					   }
+					     
+				   }
+			fis.close();
+			wbk.close();
+		} catch (HeadlessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	
-		//System.out.println("Enter hotel name: ");
-		new_Hotelname= JOptionPane.showInputDialog(null,"Enter hotel name: ");
-		
-		 for (int sheet_count = 0; sheet_count < wbk.getNumberOfSheets(); sheet_count++)
-		 {
-		   Sheet sheet = wbk.getSheetAt(sheet_count);
-		
-		   if(new_Hotelname.equalsIgnoreCase(sheet.getSheetName()))
-		   {
-			   ishotel=true;
-			   JOptionPane.showMessageDialog(null,"Given hotel name is already exist.");//get branch details etc
-			   return;
-		   }
-		 }
-		  if(!ishotel)
-			   if(!ishotel)
-			   {
-				   
-				   user_choice = JOptionPane.showInputDialog(null,"Would you like to add your hotel in our site!!!");
-				   if(user_choice.equalsIgnoreCase("yes")||user_choice.equalsIgnoreCase("s"))
-				   {
-					   	  fis.close();
-					   
-						  FileOutputStream foi = new FileOutputStream(f);  
-						  Sheet createSheet = wbk.createSheet(new_Hotelname); 
-						  
-						  	Row headerRow = createSheet.createRow(0);
-					        Cell foodCell = headerRow.createCell(0);
-					        Cell priceCell = headerRow.createCell(1);
-
-					        foodCell.setCellValue("Food Items");
-					        priceCell.setCellValue("Price");
-
-					        Font boldFont = wbk.createFont();
-					        boldFont.setBold(true);
-					        CellStyle boldStyle = wbk.createCellStyle();
-					        boldStyle.setFont(boldFont);
-
-					        foodCell.setCellStyle(boldStyle);
-					        priceCell.setCellStyle(boldStyle);
-					        
-						  wbk.write(foi); 
-						  isreg=true;
-						  System.out.println("Hotel Successfully Registered.");
-						  NewHotel_menu();
-						  foi.close();
-				   }
-				     
-			   }
-		fis.close();
-		wbk.close();
-		
 		if(user_choice.equalsIgnoreCase("No"))
 		   {
 			   System.out.println("Thank you!!!");
@@ -234,18 +242,6 @@ public class HotelManager
 		  }
 
 		 
-		 /*if(removehotel)//spare
-		 {	
-			
-							 FileOutputStream fos = new FileOutputStream(f);		
-							 wbk.write(fos);
-							 fos.close();
-							 System.out.println("Hotel removed Succesfully.");
-							
-							 isremoved=true;
-							 return;
-			
-		 }*/
 		 if(removehotel)
 		 {	
 			 System.out.println("Enter LICENSE Number: ");

@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;
 
-import javax.swing.JOptionPane;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -43,7 +42,8 @@ public class hotel_Search extends Thread {
 			String Sheetname =wbk.getSheetName(sheetcount);
 			System.out.println(sheetcount+1+"."+Sheetname);
 		}//to display hotel name
-		user_hotel =JOptionPane.showInputDialog("Enter Hotel name: ");
+		 System.out.println("Enter Hotel name: ");
+		 user_hotel=s.nextLine();
 		
 		for(int sheetcount = 0 ;sheetcount<wbk.getNumberOfSheets();sheetcount++)
 		{
@@ -51,7 +51,6 @@ public class hotel_Search extends Thread {
 			if(user_hotel.equalsIgnoreCase(sheet.getSheetName()))
 			{
 				isthere = true;
-				 //JOptionPane.showMessageDialog(null, "Welcome to Hotel "+ user_hotel.toUpperCase()+" !!"+"\nMenu:\n-----");
 				System.out.println("Welcome to Hotel "+ user_hotel.toUpperCase()+" !!");
 				System.out.println("Menu:\n-----");
 				
@@ -77,7 +76,7 @@ public class hotel_Search extends Thread {
 		
 		if(!isthere)
 		{
-			 JOptionPane.showMessageDialog(null,"Error: Hotel name not found.");
+			 System.out.println("Error: Hotel name not found.");
 			return;
 		}
 		

@@ -9,7 +9,7 @@ public class Invoice_generate extends discount_generate{
 	{
 		discount_calculation();
 		
-		if(super.user_hotel!=null && super.isthere==true && super.isitem && super.user_item.length()<=6)
+		if(super.user_hotel!=null && super.isthere==true && super.isitem && super.user_item.length()<=7)
 		{
 			if(super.user_item.equalsIgnoreCase("Idly")|| super.user_item.equalsIgnoreCase("Vada")|| super.user_item.equalsIgnoreCase("Dosa"))
 			{
@@ -42,7 +42,7 @@ public class Invoice_generate extends discount_generate{
 		}
 		
 		
-		if(super.user_hotel!=null && super.isthere==true && super.isitem && (super.user_item.length()>6 && super.user_item.length()<=15 ))
+		if(super.user_hotel!=null && super.isthere==true && super.isitem && (super.user_item.length()>7 && super.user_item.length()<=15 ))
 		{
 			//discount_calculation();
 	        System.out.println("\nInvoice:\n" + "Hotel: " + user_hotel.toUpperCase());

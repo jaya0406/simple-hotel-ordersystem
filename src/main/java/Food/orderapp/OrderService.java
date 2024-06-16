@@ -8,7 +8,7 @@ import java.io.IOException;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import javax.swing.JOptionPane;
+
 
 public class OrderService extends hotel_Search 
 {
@@ -27,8 +27,9 @@ public class OrderService extends hotel_Search
 						 
 					if (user_hotel.equalsIgnoreCase(sheet.getSheetName())) 
 					{
-						user_item= JOptionPane.showInputDialog("Enter Item name: ");
-					            
+						System.out.println("Enter Item name: ");
+						user_item= s.nextLine();
+						
 				    for (Row row : sheet)
 				    {
 				    	Foodcell = row.getCell(0);
@@ -41,14 +42,14 @@ public class OrderService extends hotel_Search
 				        if (user_item.equalsIgnoreCase(Food))
 				            {
 				            	isitem = true;
-				            	user_quantity= Integer.parseInt(JOptionPane.showInputDialog("Enter Quantity: "));
-				            	
+				            	System.out.println("Enter Quantity: ");
+				            	user_quantity= s.nextInt();
 				       if (Pricecell != null && Pricecell.getCellType() == CellType.NUMERIC)
 				            {
 				                Price = Pricecell.getNumericCellValue();
 				                this.Food = Food; // Set the correct Food value
-				                JOptionPane.showMessageDialog(null,"Your Order - " + user_item.toUpperCase() + " " + "₹"+Price + " - " + user_quantity);
-				                JOptionPane.showMessageDialog(null,"Click 'OK' to Generate INVOICE.");
+				               System.out.println("Your Order - " + user_item.toUpperCase() + " " + "₹"+Price + " - " + user_quantity);
+				               System.out.println("Click 'OK' to Generate INVOICE.");
 				                break; // Exit the loop once item is found
 				            }
 				            }
@@ -68,7 +69,7 @@ public class OrderService extends hotel_Search
 		}
 		if(!isitem)
 		{
-			 JOptionPane.showMessageDialog(null,"Error: Item not found.");
+			System.out.println("Error: Item not found.");
 			return;
 		}
 	}
