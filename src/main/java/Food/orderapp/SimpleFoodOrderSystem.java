@@ -58,6 +58,13 @@ public class SimpleFoodOrderSystem extends Invoice_generate
 					}
 				}
 			}
+
+			default: 
+				{
+					System.out.println("Thank You!!!");
+					break;
+				}
+				
 		}
 	}
 	public static void main(String[] args) throws IOException 
