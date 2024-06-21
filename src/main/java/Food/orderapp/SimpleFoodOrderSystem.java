@@ -38,7 +38,7 @@ public class SimpleFoodOrderSystem extends Invoice_generate
 			case 4:
 			{
 				int updatechoice;
-				System.out.println("Enter 1 to Add Items.\nEnter 2 to Change price.\nEnter 3 to Remove Items.");
+				System.out.println("Enter 1 to Add Items.\nEnter 2 to Change price.");
 				updatechoice=s.nextInt();
 				
 				switch(updatechoice)
