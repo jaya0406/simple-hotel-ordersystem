@@ -15,7 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class hotel_Search extends Thread {
 	
 	Scanner s = new Scanner(System.in);
-	protected String filepath=System.getProperty("user.dir")+"\\Excel_files\\Hotels.xlsx"; String user_hotel= new String();
+	protected String filepath=System.getProperty("user.dir")+"\\Excel_files\\Hotels_menu.xlsx"; String user_hotel= new String();
 	protected boolean isthere = false;
 	protected String Food;
 	protected double Price;
