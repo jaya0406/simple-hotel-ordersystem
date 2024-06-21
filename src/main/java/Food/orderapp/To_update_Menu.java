@@ -14,7 +14,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class To_update_Menu
 {
-
 	protected String Filepath =System.getProperty("user.dir")+"\\Excel_files\\Hotels.xlsx";
 	Scanner s = new Scanner(System.in);
 	protected boolean ishotel=false;
@@ -34,7 +33,6 @@ public void additemMenu() throws IOException
 		
 		System.out.println("Enter your Hotel name:  ");
 		String gethotelname = s.nextLine();
-		
 		
 		for(int countsheet=0;countsheet<wbk.getNumberOfSheets();countsheet++)
 		{
@@ -67,7 +65,6 @@ public void additemMenu() throws IOException
 						}
 					}
 				}
-				
 				
 				boolean added=true;
 				while(true)
@@ -134,7 +131,6 @@ public void additemMenu() throws IOException
 		
 	}
 	
-	
 public void changeprice() throws IOException
 	{	
 		File f = new File(Filepath);
@@ -163,8 +159,6 @@ public void changeprice() throws IOException
 			{
 				isthere=true;
 				System.out.println("Your Current Menu\n==================");
-				
-				
 				//Row row1 = sheet1.getRow(0);
 				
 				for(Row row:sheet1)
@@ -200,9 +194,8 @@ public void changeprice() throws IOException
 						 boolean tochange=true;
 						 while(true)
 						 {
-								System.out.println("\nEnter Item (Enter "end" to stop):  ");
-								change_food = s.nextLine();
-								
+							System.out.println("\nEnter Item (Enter "end" to stop):  ");
+							change_food = s.nextLine();
 							
 							if(change_food.equalsIgnoreCase("end"))
 							{
@@ -268,8 +261,6 @@ public void changeprice() throws IOException
 			return;
 		}
 	}
-
-	
 	public static void main(String[] args) throws IOException 
 	{
 		// TODO Auto-generated method stub
