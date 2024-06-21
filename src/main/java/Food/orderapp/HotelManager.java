@@ -21,7 +21,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class HotelManager
 {
 	
-	protected String filepath=System.getProperty("user.dir")+"\\Excel_files\\Hotels.xlsx";
+	protected String filepath=System.getProperty("user.dir")+"\\Excel_files\\Hotels_menu.xlsx";
 	protected String Owners_details=System.getProperty("user.dir")+"\\Excel_files\\ownerdetails.xlsx";
 	protected List<String> newHotels= new ArrayList<String>();
 	protected String new_Hotelname;
@@ -35,7 +35,7 @@ public class HotelManager
 	boolean ishotel=false;
 	boolean isitem=false;
 	boolean isreg=false;
-	 boolean isremoved=false;	
+	boolean isremoved=false;	
 	
 	
 	Scanner s = new Scanner(System.in);
@@ -49,9 +49,10 @@ public class HotelManager
 				
 				File f = new File(filepath);
 				FileInputStream fis = new FileInputStream(f);
-				try (//FileOutputStream foi = new FileOutputStream(f);
-				XSSFWorkbook wbk = new XSSFWorkbook(fis)) {
-					Sheet sheet =  wbk.getSheet(gethotel_name);
+				//FileOutputStream foi = new FileOutputStream(f);
+				XSSFWorkbook wbk = new XSSFWorkbook(fis);
+					
+				Sheet sheet =  wbk.getSheet(gethotel_name);
 					
 					if(sheet==null)
 					{
@@ -71,16 +72,18 @@ public class HotelManager
 								System.out.println("Items added.");
 								
 								File f1 = new File(filepath);
-								try (FileInputStream fis1 = new FileInputStream(f)) {
-								}
-								try (XSSFWorkbook wbk1 = new XSSFWorkbook(fis)) {
-								}
+								FileInputStream fis1 = new FileInputStream(f);
 								
-								for(int sheetcount = 0 ;sheetcount<wbk.getNumberOfSheets();sheetcount++)
+								XSSFWorkbook wbk1 = new XSSFWorkbook(fis1);
+								
+								System.out.println("Your menu\n=========");
+								
+								for(int sheetcount = 0 ;sheetcount<wbk1.getNumberOfSheets();sheetcount++)
 								{
-									 sheet = wbk.getSheetAt(sheetcount);
+									 sheet = wbk1.getSheetAt(sheetcount);
 									if(gethotel_name.equalsIgnoreCase(sheet.getSheetName()))
 									{
+										
 										for(Row row : sheet)
 										{	
 											Cell Foodcell;
@@ -94,14 +97,13 @@ public class HotelManager
 												{
 													String Food=Foodcell.getStringCellValue();
 													double Price=Pricecell.getNumericCellValue();
-													System.out.println("Your menu: ");
 													System.out.println(Food+" - ₹"+Price);
 												}
 											}
 										}
-										break;
+										return;
 									}
-									wbk.close();
+									wbk1.close();
 								}
 								
 							}
@@ -128,8 +130,7 @@ public class HotelManager
 						}
 				}
 					
-			}
-
+			
 			
 	}
 
@@ -205,10 +206,6 @@ public class HotelManager
 			   return;
 		   }
 		   
-		if(isreg)
-		{
-			//to upload owner
-		}
 	}
 	
 	public void remove_hotel() throws IOException
@@ -241,7 +238,6 @@ public class HotelManager
 					
 		  }
 
-		 
 		 if(removehotel)
 		 {	
 			 System.out.println("Enter LICENSE Number: ");
@@ -281,8 +277,7 @@ public class HotelManager
 						
 					}
 				}
-				 
-				 
+				
 				 if(isremoved)
 				 {
 					 FileOutputStream fos1 = new FileOutputStream(f1); 
@@ -314,17 +309,14 @@ public class HotelManager
 				return;
 			}
 	}
-	
 
-		 
-	
 	public static void main(String[] args) throws IOException
 	{
 		// TODO Auto-generated method stub
 		HotelManager hm = new HotelManager();
-		//hm.Addnew_hotel();
+		hm.Addnew_hotel();
 		//ham.NewHotel_menu();
-		hm.remove_hotel();
+		//hm.remove_hotel();
 
 	}
 
